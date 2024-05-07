@@ -59,7 +59,7 @@ export default function SideDrawer({
   setActiveTab: Dispatch<SetStateAction<number>>;
   setSelectedLocation: Dispatch<SetStateAction<string>>;
   loading: boolean;
-  partialGeoJson: PartialSilvanusGeoJson;
+  partialGeoJson: PartialSilvanusGeoJson | null;
 }) {
   const [state, dispatch] = useReducer(reducer, [""]);
 
@@ -124,7 +124,7 @@ export default function SideDrawer({
               index={0}
             >
               <div className="bg-green-500 text-sm font-medium p-4 mb-4 text-center">
-                Use the drawing tools on the left.
+                Use the drawing tools on the left OR .shp files.
               </div>
             </CustomTabPanel>
             <CustomTabPanel
@@ -290,38 +290,42 @@ export default function SideDrawer({
               </AccordionDetails>
             </Accordion>
           )}
-          <Accordion
-            slotProps={{ transition: { unmountOnExit: true } }}
-            disableGutters
-          >
-            <AccordionSummary
-              expandIcon={<ArrowDropDownIcon />}
-              aria-controls="panel3-content"
-              id="panel3-header"
+          {activeTab === 1 && (
+            <Accordion
+              slotProps={{ transition: { unmountOnExit: true } }}
+              disableGutters
             >
-              <span className="text-base font-semibold">Regulation</span>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Policies />
-            </AccordionDetails>
-          </Accordion>
-          <Accordion
-            slotProps={{ transition: { unmountOnExit: true } }}
-            disableGutters
-          >
-            <AccordionSummary
-              expandIcon={<ArrowDropDownIcon />}
-              aria-controls="panel4-content"
-              id="panel4-header"
+              <AccordionSummary
+                expandIcon={<ArrowDropDownIcon />}
+                aria-controls="panel3-content"
+                id="panel3-header"
+              >
+                <span className="text-base font-semibold">Regulation</span>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Policies />
+              </AccordionDetails>
+            </Accordion>
+          )}
+          {activeTab === 1 && (
+            <Accordion
+              slotProps={{ transition: { unmountOnExit: true } }}
+              disableGutters
             >
-              <span className="text-base font-semibold">
-                Rehabilitation and Restoration Programs
-              </span>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Programs />
-            </AccordionDetails>
-          </Accordion>
+              <AccordionSummary
+                expandIcon={<ArrowDropDownIcon />}
+                aria-controls="panel4-content"
+                id="panel4-header"
+              >
+                <span className="text-base font-semibold">
+                  Rehabilitation and Restoration Programs
+                </span>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Programs />
+              </AccordionDetails>
+            </Accordion>
+          )}
         </>
       )}
     </div>
